@@ -24,44 +24,5 @@ import com.gamesShop.GamesShop.repository.UsuarioRepository;
 @RequestMapping("/users")
 public class UsuarioController {
 	
-	@Autowired
-	private UsuarioRepository repository;
-	
-	@GetMapping
-	public ResponseEntity<List<Usuario>> findAllUsuario(){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.findAll());
-	}
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> findByIdUsuario(@PathVariable Long id){
-		return repository.findById(id)
-				.map(resp->ResponseEntity.status(HttpStatus.OK).body(resp))
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-	}
-	
-	@GetMapping("/nameUser/{nome}")
-	public ResponseEntity<List<Usuario>> findByNomeUsuario(@PathVariable String name){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.findAllByNomeContainingIgnoreCase(name));
-	}
-	
-	@GetMapping("/sobrenomeUser/{sobrenome}")
-	public ResponseEntity<List<Usuario>> findBySobrenome(@PathVariable String sobrenome){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.findAllBySobrenomeContainingIgnoreCase(sobrenome));
-	}
-	
-	@PostMapping
-	public ResponseEntity<Usuario> postUsuario(@Validated @RequestBody Usuario usuario){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
-	}
-	
-	@PutMapping
-	public ResponseEntity<Usuario> putUsuario(@Validated @RequestBody Usuario usuario){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(usuario));
-	}
-	
-	@DeleteMapping("/deleteUser/{id}")
-	public void deleteUsuario(@PathVariable Long id) {
-		repository.deleteById(id);
-	}
 	
 }
